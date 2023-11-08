@@ -18,7 +18,7 @@ public class ProdutoServico {
 	private ProdutoRepositorioJPA produtoRepositorioJPA;
 	
 	public ProdutoDTO insert(ProdutoDTO produto) {
-		Produto prod = new Produto(produto.getId(), produto.getNome(), produto.getPreco());	
+		Produto prod = new Produto(produto);	
 		return new ProdutoDTO(produtoRepositorioJPA.save(prod));
 		
 	}
@@ -30,8 +30,8 @@ public class ProdutoServico {
 		
 	}
 	
-	public Optional<Produto> findById(Integer id) {
-		return produtoRepositorioJPA.findById(id);
+	public Optional<ProdutoDTO> findById(Integer id) {
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findById(id).get()));
 		
 	}
 	
@@ -39,13 +39,13 @@ public class ProdutoServico {
 		produtoRepositorioJPA.deleteById(id);
 	}
 	
-	public Optional<Produto> findByIdPrecoJpql(Integer id, Double preco) {
-		return produtoRepositorioJPA.findProdutoParam(id, preco);
+	public Optional<ProdutoDTO> findByIdPrecoJpql(Integer id, Double preco) {
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findProdutoParam(id, preco).get()));
 		
 	}
 	
-	public Optional<Produto> findByIdPrecoSql(Integer id, Double preco) {
-		return produtoRepositorioJPA.findProdutoParamSql(id, preco);
+	public Optional<ProdutoDTO> findByIdPrecoSql(Integer id, Double preco) {
+		return Optional.of (new ProdutoDTO(produtoRepositorioJPA.findProdutoParamSql(id, preco).get()));
 		
 	}
 	
